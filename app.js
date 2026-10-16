@@ -8,9 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let searchTerm = '';
   let activeTypes = new Set(['nextgen', 'official']);
 
+  // Detect today's date in YYYY-MM-DD (local time)
+  const today = new Date();
+  const localToday = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
   // Build day tabs
   const allTab = document.createElement('button');
-  allTab.className = 'day-tab active';
+  allTab.className = 'day-tab';
   allTab.textContent = 'All Days';
   allTab.dataset.day = 'all';
   allTab.onclick = () => setDay('all');
@@ -25,6 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
     dayTabs.appendChild(tab);
   });
 
+  // Default to today if it matches a festival day, otherwise "all"
+  const matchingDay = schedule.find(d => d.date === localToday);
+  if (matchingDay) {
+    activeDay = localToday;
+  }
+
   function setDay(day) {
     activeDay = day;
     document.querySelectorAll('.day-tab').forEach(t => {
@@ -32,6 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     render();
   }
+
+  // Apply initial active state
+  document.querySelectorAll('.day-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.day === activeDay);
+  });
 
   searchInput.addEventListener('input', (e) => {
     searchTerm = e.target.value.toLowerCase();
