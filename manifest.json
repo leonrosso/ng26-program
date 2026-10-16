@@ -1,0 +1,19 @@
+{
+  "name": "Next Generation 2026",
+  "short_name": "NG26",
+  "description": "Interactive program for the Next Generation Student Program at Donaueschinger Musiktage",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f0f12",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
